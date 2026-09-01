@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/crest.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Civil Service Harriers — founded 1867, Ireland's oldest athletic club. Running out of the Phoenix Park, Dublin."
+    />
+    <!-- TODO(polish): add Open Graph / Twitter card meta (og:title, og:description, og:image, twitter:card)
+         so shared links show a rich preview. Needs a hosted share image (e.g. the group photo). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Zilla+Slab:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Civil Service Harriers · Est. 1867</title>
+    <script type="text/javascript">
+      // Decode the path that public/404.html stashed in the query string, so a
+      // deep-linked GitHub Pages URL lands on the right React Router route.
+      // Technique: https://github.com/rafgraph/spa-github-pages
+      ;(function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&')
+            })
+            .join('?')
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
+        }
+      })(window.location)
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

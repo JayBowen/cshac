@@ -1,0 +1,178 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ---- Fonts exposed as Tailwind utilities (font-sans / font-serif / font-slab) ---- */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-slab: "Zilla Slab", "Fraunces", Georgia, serif;
+}
+
+/* ---- Design tokens (shadcn + brand). ---- */
+:root {
+  --radius: 0.75rem;
+
+  --background: #f4f1e9; /* warm paper */
+  --foreground: #16150f; /* near-black ink */
+  --card: #fbf9f3;
+  --card-foreground: #16150f;
+  --popover: #fbf9f3;
+  --popover-foreground: #16150f;
+  --primary: #7a0f33; /* deep claret, matched to the club crest */
+  --primary-foreground: #f6f1e7;
+  --secondary: #ebe6d9;
+  --secondary-foreground: #16150f;
+  --muted: #ebe6d9;
+  --muted-foreground: #6a6558;
+  --accent: #ede8dc;
+  --accent-foreground: #16150f;
+  --destructive: #b3261e;
+  --border: #ddd6c7;
+  --input: #ddd6c7;
+  --ring: #7a0f33;
+
+  /* brand extras */
+  --accent-deep: #4f1027; /* dark claret for heritage band */
+  --paper-2: #ebe6d9;
+  --gold: #a4884f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-accent-deep: var(--accent-deep);
+  --color-paper-2: var(--paper-2);
+  --color-gold: var(--gold);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  /* Offset anchor targets (e.g. /#train) so they land below the 74px sticky header. */
+  section[id] {
+    scroll-margin-top: 90px;
+  }
+}
+
+/* ---- Small reusable layout helpers (avoid repeating clamp/calc in markup) ---- */
+@layer components {
+  .wrap {
+    width: min(100% - 2.5rem, 1180px);
+    margin-inline: auto;
+  }
+  .section-pad {
+    padding-block: clamp(4rem, 9vw, 8rem);
+  }
+  .h-hero {
+    min-height: min(92vh, 900px);
+  }
+  .display-1 {
+    font-size: clamp(2.6rem, 7vw, 6rem);
+    line-height: 1.02;
+  }
+  .display-2 {
+    font-size: clamp(2rem, 4.2vw, 3.25rem);
+  }
+  .display-3 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+  }
+  .hero-scrim {
+    /* Image-agnostic legibility: light through the top so faces/scene stay
+       visible, then a strong ramp through the lower half where the headline and
+       supporting text sit — so white text keeps contrast on every hero photo and
+       breakpoint (the taller group/landscape shots have brighter sky + white kit
+       under the headline). Pairs with .hero-text below for bright-spot insurance. */
+    background: linear-gradient(
+      180deg,
+      rgba(12, 8, 6, 0.36) 0%,
+      rgba(12, 8, 6, 0.12) 26%,
+      rgba(26, 8, 14, 0.56) 54%,
+      rgba(16, 5, 10, 0.97) 100%
+    );
+  }
+  .hero-text {
+    /* Soft dark halo so large + small white text survives bright patches in the
+       photo (sky, white vests) even where the scrim is lightest. */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 2px 24px rgba(0, 0, 0, 0.4);
+  }
+  .watermark {
+    font-size: clamp(10rem, 26vw, 24rem);
+    line-height: 1;
+  }
+}
+
+/* ---- Crest: full-colour maroon mark gets a crisp white outline on dark/low-contrast
+   backgrounds (the maroon alone is only ~2.4:1 on the near-black footer). ---- */
+@layer utilities {
+  .crest-ring {
+    filter:
+      drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff)
+      drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff)
+      drop-shadow(1px 1px 0 #fff) drop-shadow(-1px -1px 0 #fff)
+      drop-shadow(1px -1px 0 #fff) drop-shadow(-1px 1px 0 #fff);
+  }
+}
+
+/* ---- Scroll reveal ---- */
+@layer utilities {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
