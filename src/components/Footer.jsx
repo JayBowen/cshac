@@ -2,10 +2,9 @@ import { Link } from "react-router-dom"
 import { Wordmark } from "@/components/Brand"
 import { asset } from "@/lib/asset"
 
-// Links with a `to` are live (react-router routes or /#section anchors); links
-// without one are still placeholders and render as a dead href="#".
-// TODO(launch): give Committee / Volunteer / Club kit / Contact real destinations
-// (or trim them). Contact especially should become a mailto or contact page.
+// Links with an `href` are external (open in a new tab); links with a `to` are live
+// (react-router routes or /#section anchors); links with neither are placeholders
+// and render as a dead href="#".
 const COLUMNS = [
   {
     title: "The Club",
@@ -13,24 +12,22 @@ const COLUMNS = [
       { label: "About", to: "/#about" },
       { label: "History", to: "/history" },
       { label: "Gallery", to: "/gallery" },
-      { label: "Committee" },
     ],
   },
-  {
-    title: "Running",
-    links: [
-      { label: "Train with us", to: "/#train" },
-      { label: "FAQ", to: "/#faq" },
-      { label: "Beginners", to: "/#train" },
-    ],
-  },
+
   {
     title: "Get involved",
     links: [
       { label: "Join the club", to: "/#join" },
-      { label: "Volunteer" },
-      { label: "Club kit" },
-      { label: "Contact" },
+      {
+        label: "Club kit",
+        href: "https://www.jfsports.ie/product-category/club-shop/civil-service-harriers-ac/",
+      },
+
+      {
+        label: "Contact us",
+        href: "mailto:cshnewmembers@gmail.com"
+      }
     ],
   },
 ]
@@ -69,7 +66,16 @@ export default function Footer() {
               <ul className="flex flex-col gap-2.5 text-sm">
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    {l.to ? (
+                    {l.href ? (
+                      <a
+                        href={l.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors hover:text-white"
+                      >
+                        {l.label}
+                      </a>
+                    ) : l.to ? (
                       <Link to={l.to} className="transition-colors hover:text-white">
                         {l.label}
                       </Link>
