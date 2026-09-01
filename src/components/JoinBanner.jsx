@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { JOIN_URL } from "@/lib/links"
 
 export default function JoinBanner() {
   return (
@@ -11,9 +12,10 @@ export default function JoinBanner() {
           your kind of club. Membership is €120 a year.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          {/* TODO(launch): give "Become a member" a real destination (mailto the club, or a membership form). Currently a dead href="#". */}
           <Button asChild variant="onDark" size="lg">
-            <a href="#">Become a member</a>
+            <a href={JOIN_URL} target="_blank" rel="noopener noreferrer">
+              Become a member
+            </a>
           </Button>
           <Button asChild variant="outlineLight" size="lg">
             <a href="#train">Find the clubhouse</a>

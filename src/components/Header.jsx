@@ -4,18 +4,30 @@ import { Wordmark } from "@/components/Brand"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-// `route: true` items are their own pages (History, Gallery) and get an active
-// underline via NavLink; the rest are hash links back to sections on the home page.
+// `route: true` items are their own pages and get an active underline via NavLink;
+// the rest would be hash links back to sections on the home page. Home uses `end`
+// so "/" only reads as active on the home page, not on every route beneath it.
 const NAV = [
-  { label: "Train", to: "/#train" },
-  { label: "History", to: "/history", route: true },
+  { label: "Home", to: "/", route: true, end: true },
   { label: "Gallery", to: "/gallery", route: true },
-  { label: "Journal", to: "/#journal" },
-  { label: "FAQ", to: "/#faq" },
+  { label: "History", to: "/history", route: true },
 ]
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+
+  // Slide down to the "Run with us" (#join) section. When it's on the current page
+  // (the home page) scroll to it directly for the same smooth glide as the hero
+  // button; otherwise fall through to the <Link>, which routes home and lets
+  // ScrollManager scroll to it once Home has mounted.
+  const handleJoinClick = (e) => {
+    setOpen(false)
+    const el = document.getElementById("join")
+    if (el) {
+      e.preventDefault()
+      el.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 
   // Close the mobile menu on Escape.
   useEffect(() => {
@@ -39,6 +51,7 @@ export default function Header() {
               <NavLink
                 key={n.to}
                 to={n.to}
+                end={n.end}
                 className={({ isActive }) =>
                   cn(
                     "text-[0.92rem] font-medium transition-colors hover:text-foreground",
@@ -62,7 +75,9 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="hidden md:inline-flex">
-            <Link to="/#join">Join the club</Link>
+            <Link to="/#join" onClick={handleJoinClick}>
+              Join the club
+            </Link>
           </Button>
 
           <button
@@ -107,7 +122,7 @@ export default function Header() {
             </Link>
           ))}
           <Button asChild size="lg" className="mb-2 mt-4 w-full">
-            <Link to="/#join" onClick={() => setOpen(false)}>
+            <Link to="/#join" onClick={handleJoinClick}>
               Join the club
             </Link>
           </Button>

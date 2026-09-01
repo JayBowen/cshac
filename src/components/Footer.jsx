@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { Wordmark } from "@/components/Brand"
+import { asset } from "@/lib/asset"
 
 // Links with a `to` are live (react-router routes or /#section anchors); links
 // without one are still placeholders and render as a dead href="#".
@@ -19,7 +20,6 @@ const COLUMNS = [
     title: "Running",
     links: [
       { label: "Train with us", to: "/#train" },
-      { label: "Journal", to: "/#journal" },
       { label: "FAQ", to: "/#faq" },
       { label: "Beginners", to: "/#train" },
     ],
@@ -88,11 +88,23 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6 text-[0.82rem] text-white/55">
           <span className="font-slab uppercase tracking-[0.14em] text-white/70">Est. 1867</span>
-          {/* TODO(launch): Privacy / Safeguarding / Contact are dead href="#". Link real pages or remove. */}
           <div className="flex flex-wrap items-center gap-5">
-            <a href="#" className="hover:text-white">Privacy</a>
-            <a href="#" className="hover:text-white">Safeguarding</a>
-            <a href="#" className="hover:text-white">Contact</a>
+            <a
+              href={asset("docs/privacy-policy.pdf")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href={asset("docs/privacy-statement.pdf")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              Privacy Statement
+            </a>
           </div>
         </div>
       </div>

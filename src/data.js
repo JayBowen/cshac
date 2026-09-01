@@ -1,35 +1,51 @@
-// TODO(launch): `stories` is entirely placeholder — the three posts are invented and the images
-// are random picsum.photos shots. Supply real Journal content (or hide the Journal section) before launch.
-// `stats` below is real/derived (1867, 159 years as of 2026, Phoenix Park) and is fine to keep.
-
-export const stories = [
-  {
-    tag: "From the archive",
-    title: "The cross-country men of the 1930s",
-    excerpt: "Glass-plate photographs from the club's early decades, newly digitised for the 1867 project.",
-    img: "https://picsum.photos/seed/cshac-archive/900/650",
-    archival: true,
-  },
-  {
-    tag: "Race report",
-    title: "A clean sweep at the Frank Duffy 10",
-    excerpt: "Three podiums and a fistful of personal bests on a bright morning in the Park.",
-    img: "https://picsum.photos/seed/cshac-race/900/650",
-    archival: false,
-  },
-  {
-    tag: "Member profile",
-    title: "Why I joined at 52 — and wish I'd started sooner",
-    excerpt: "Marie on Tuesday nights, the long Sunday miles, and the tea afterwards.",
-    img: "https://picsum.photos/seed/cshac-member/900/650",
-    archival: true,
-  },
-]
-
+// `stats` is real/derived (1867, 159 years as of 2026, Phoenix Park) and is fine to keep.
 export const stats = [
   { n: "1867", l: "The year we were founded" },
   { n: "159", l: "Years, and counting" },
   { n: "Phoenix Park", l: "Home since day one" },
+]
+
+// Championship medals for the home-page "On the podium" section: gold / silver /
+// bronze won by club members at each championship level, most recent year first.
+// TODO(launch): every count below is a PLACEHOLDER — replace with the club's real
+// Dublin / Leinster / All-Ireland medal counts (and update the years). The section
+// reads these numbers straight from here.
+export const medalYears = [
+  {
+    year: 2025,
+    dublin: { gold: 3, silver: 2, bronze: 3 },
+    leinster: { gold: 2, silver: 1, bronze: 2 },
+    allIreland: { gold: 1, silver: 0, bronze: 1 },
+    placeholder: true,
+  },
+  {
+    year: 2024,
+    dublin: { gold: 2, silver: 3, bronze: 1 },
+    leinster: { gold: 1, silver: 2, bronze: 1 },
+    allIreland: { gold: 0, silver: 1, bronze: 1 },
+    placeholder: true,
+  },
+  {
+    year: 2023,
+    dublin: { gold: 4, silver: 2, bronze: 2 },
+    leinster: { gold: 2, silver: 1, bronze: 0 },
+    allIreland: { gold: 1, silver: 0, bronze: 0 },
+    placeholder: true,
+  },
+  {
+    year: 2022,
+    dublin: { gold: 2, silver: 1, bronze: 2 },
+    leinster: { gold: 1, silver: 1, bronze: 0 },
+    allIreland: { gold: 0, silver: 1, bronze: 1 },
+    placeholder: true,
+  },
+  {
+    year: 2021,
+    dublin: { gold: 1, silver: 2, bronze: 1 },
+    leinster: { gold: 0, silver: 1, bronze: 1 },
+    allIreland: { gold: 0, silver: 0, bronze: 0 },
+    placeholder: true,
+  },
 ]
 
 // Timeline for the History page. Sourced from the club's own history page

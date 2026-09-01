@@ -37,13 +37,13 @@ export default function Hero() {
           Phoenix Park, Dublin · Est. 1867
         </p>
 
-        <h1 className="display-1 hero-text mt-5 max-w-[15ch] font-serif">
-          Ireland&rsquo;s <em className="italic">oldest</em> athletic club.
+        <h1 className="display-1 hero-text max-w-[16ch] font-serif">
+          Civil Service Harriers AC
         </h1>
 
-        <p className="hero-text mt-6 max-w-[46ch] text-lg text-white/90">
-          Founded in 1867 and still running out of the Phoenix Park — every week, every pace, every
-          age.
+        <p className="hero-text mt-6 max-w-[48ch] text-lg text-white/90">
+          Ireland&rsquo;s <em className="italic">oldest</em> athletic club — founded in 1867 and
+          still running out of the Phoenix Park, for every pace, distance and age.
         </p>
 
         <div className="mt-9 flex flex-wrap gap-4">
