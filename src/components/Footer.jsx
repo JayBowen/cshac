@@ -42,15 +42,18 @@ export default function Footer() {
               all ages, all welcome.
             </p>
             <div className="mt-5 flex gap-3">
-              <Social label="Instagram">
+              <Social
+                label="Instagram"
+                href="https://www.instagram.com/civilserviceharriersrunning"
+              >
                 <rect x="3" y="3" width="18" height="18" rx="5" />
                 <circle cx="12" cy="12" r="4" />
                 <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
               </Social>
-              <Social label="Strava" fill>
+              <Social label="Strava" href="https://www.strava.com/clubs/civil-service-harriers" fill>
                 <path d="M10.7 2 4.5 14.4h3.7L10.7 9.5l2.5 4.9h3.6L10.7 2Zm2.6 12.4 1.7 3.3 1.7-3.3H19l-3.4 6.6-3.4-6.6h1.1Z" />
               </Social>
-              <Social label="Facebook" fill>
+              <Social label="Facebook" href="https://www.facebook.com/civilserviceharriers/" fill>
                 <path d="M14.5 8.5V7c0-.9.2-1.4 1.5-1.4h1.6V2.4c-.4-.1-1.4-.2-2.6-.2-2.6 0-4.2 1.6-4.2 4.4v1.9H8v3.4h2.8V22h3.5v-9.9h2.7l.4-3.4h-2.9Z" />
               </Social>
             </div>
@@ -116,11 +119,12 @@ export default function Footer() {
   )
 }
 
-function Social({ label, children, fill = false }) {
+function Social({ label, href, children, fill = false }) {
   return (
-    // TODO(launch): replace href="#" with the club's real Instagram / Strava / Facebook URLs.
     <a
-      href="#"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
       className="grid size-9 place-items-center rounded-full border border-white/20 transition-colors hover:border-primary hover:bg-primary"
     >
