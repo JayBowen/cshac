@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { JOIN_URL } from "@/lib/links"
+import { JOIN_URL, CONTACT_MAILTO } from "@/lib/links"
 
 export default function JoinBanner() {
   return (
@@ -18,7 +18,9 @@ export default function JoinBanner() {
             </a>
           </Button>
           <Button asChild variant="outlineLight" size="lg">
-            <a href="#train">Find the clubhouse</a>
+            <a href={CONTACT_MAILTO} target="_blank" rel="noopener noreferrer">
+              Contact us
+            </a>
           </Button>
         </div>
       </div>

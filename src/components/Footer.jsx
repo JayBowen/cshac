@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { Wordmark } from "@/components/Brand"
 import { asset } from "@/lib/asset"
+import { CONTACT_MAILTO } from "@/lib/links"
 
 // Links with an `href` are external (open in a new tab); links with a `to` are live
 // (react-router routes or /#section anchors); links with neither are placeholders
@@ -24,10 +25,7 @@ const COLUMNS = [
         href: "https://www.jfsports.ie/product-category/club-shop/civil-service-harriers-ac/",
       },
 
-      {
-        label: "Contact us",
-        href: "mailto:cshnewmembers@gmail.com"
-      }
+      { label: "Contact us", href: CONTACT_MAILTO },
     ],
   },
 ]
