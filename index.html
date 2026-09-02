@@ -8,8 +8,30 @@
       name="description"
       content="Civil Service Harriers — founded 1867, Ireland's oldest athletic club. Running out of the Phoenix Park, Dublin."
     />
-    <!-- TODO(polish): add Open Graph / Twitter card meta (og:title, og:description, og:image, twitter:card)
-         so shared links show a rich preview. Needs a hosted share image (e.g. the group photo). -->
+    <!-- Open Graph / Twitter card — controls the preview shown when the link is shared
+         (WhatsApp, iMessage, Facebook, Slack, X, …). og:url and og:image must be absolute
+         because the sharing app fetches them from its own servers, and Vite does not rewrite
+         meta content for the /cshac/ base path — so these are hardcoded to the Pages URL.
+         TODO(polish): swap og:image for a dedicated ~1200×630 share image when one exists. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Civil Service Harriers AC" />
+    <meta property="og:title" content="Civil Service Harriers AC" />
+    <meta
+      property="og:description"
+      content="Ireland's oldest athletic club — founded 1867, running out of the Phoenix Park, Dublin."
+    />
+    <meta property="og:url" content="https://jaybowen.github.io/cshac/" />
+    <meta property="og:image" content="https://jaybowen.github.io/cshac/crest.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Civil Service Harriers crest" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Civil Service Harriers AC" />
+    <meta
+      name="twitter:description"
+      content="Ireland's oldest athletic club — founded 1867, running out of the Phoenix Park, Dublin."
+    />
+    <meta name="twitter:image" content="https://jaybowen.github.io/cshac/crest.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -38,7 +38,7 @@ export default function Faq() {
         data-reveal
       >
         <div>
-          <Overline>03 — Good to know</Overline>
+          <Overline>02 — Good to know</Overline>
           <h2 className="display-2 mt-4">Frequently asked questions</h2>
           <p className="mt-4 text-lg text-muted-foreground">
             The things people ask most before their first run with us.

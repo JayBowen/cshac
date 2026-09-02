@@ -5,49 +5,6 @@ export const stats = [
   { n: "Phoenix Park", l: "Home since day one" },
 ]
 
-// Championship medals for the home-page "On the podium" section: gold / silver /
-// bronze won by club members at each championship level, most recent year first.
-// TODO(launch): every count below is a PLACEHOLDER — replace with the club's real
-// Dublin / Leinster / All-Ireland medal counts (and update the years). The section
-// reads these numbers straight from here.
-export const medalYears = [
-  {
-    year: 2025,
-    dublin: { gold: 3, silver: 2, bronze: 3 },
-    leinster: { gold: 2, silver: 1, bronze: 2 },
-    allIreland: { gold: 1, silver: 0, bronze: 1 },
-    placeholder: true,
-  },
-  {
-    year: 2024,
-    dublin: { gold: 2, silver: 3, bronze: 1 },
-    leinster: { gold: 1, silver: 2, bronze: 1 },
-    allIreland: { gold: 0, silver: 1, bronze: 1 },
-    placeholder: true,
-  },
-  {
-    year: 2023,
-    dublin: { gold: 4, silver: 2, bronze: 2 },
-    leinster: { gold: 2, silver: 1, bronze: 0 },
-    allIreland: { gold: 1, silver: 0, bronze: 0 },
-    placeholder: true,
-  },
-  {
-    year: 2022,
-    dublin: { gold: 2, silver: 1, bronze: 2 },
-    leinster: { gold: 1, silver: 1, bronze: 0 },
-    allIreland: { gold: 0, silver: 1, bronze: 1 },
-    placeholder: true,
-  },
-  {
-    year: 2021,
-    dublin: { gold: 1, silver: 2, bronze: 1 },
-    leinster: { gold: 0, silver: 1, bronze: 1 },
-    allIreland: { gold: 0, silver: 0, bronze: 0 },
-    placeholder: true,
-  },
-]
-
 // Timeline for the History page. Sourced from the club's own history page
 // (civilserviceharriers.ie/history-2). The `placeholder: true` entry is the
 // club's own "to follow" gap for the mid-century decades, not invented content.
