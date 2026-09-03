@@ -109,14 +109,3 @@ export const famousAthletes = [
     body: "Came within a whisker of qualifying for the marathon at the 2000 Sydney Olympics.",
   },
 ]
-
-// Starter set for the Gallery page — real, unwatermarked club photos.
-// TODO(launch): expand with the club's own gallery; these six are a starting point.
-export const galleryImages = [
-  { src: "/gallery/5k-group.jpg", w: 1200, h: 675, alt: "Club members with medals after a 5K in the Phoenix Park" },
-  { src: "/gallery/two-runners.jpg", w: 800, h: 1200, alt: "Two members running through the Phoenix Park" },
-  { src: "/gallery/group-park.jpg", w: 1400, h: 933, alt: "The full club gathered in the Phoenix Park" },
-  { src: "/gallery/xc-women.jpg", w: 1400, h: 1050, alt: "The women's team at a cross-country race" },
-  { src: "/gallery/masters-men.jpg", w: 1200, h: 900, alt: "Three masters athletes after a race" },
-  { src: "/gallery/medals-women.jpg", w: 1200, h: 900, alt: "Three members with their medals in club kit" },
-]

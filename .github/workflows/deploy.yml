@@ -27,9 +27,11 @@ jobs:
           cache: npm
       - run: npm ci
       # Pages serves this project site under /cshac/, so the build needs that base path.
+      # GALLERY_BASE_URL is a repo variable pointing at the gallery bucket's CDN origin.
       - run: npm run build
         env:
           VITE_BASE: /cshac/
+          VITE_GALLERY_BASE_URL: ${{ vars.GALLERY_BASE_URL }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

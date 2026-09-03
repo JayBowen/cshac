@@ -1,12 +1,55 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import Masonry from "react-masonry-css"
 import PageHeader from "@/components/PageHeader"
 import { Button } from "@/components/ui/button"
-import { galleryImages } from "@/data"
-import { asset } from "@/lib/asset"
+import Lightbox from "@/components/Lightbox"
+import { galleryAsset } from "@/lib/galleryAsset"
+import { listGalleryImages } from "@/lib/galleryList"
 import { useScrollReveal } from "@/lib/useScrollReveal"
 
+// Photos aren't bundled with the app, and there's no manifest to maintain either —
+// the gallery bucket is listed directly at runtime (see lib/galleryList.js), so
+// uploading new photos to S3 is the only step needed to update the live site.
 export default function Gallery() {
-  useScrollReveal()
+  const [images, setImages] = useState(null) // null = still loading
+  const [failed, setFailed] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  useEffect(() => {
+    listGalleryImages()
+      .then(setImages)
+      .catch((err) => {
+        console.error(err)
+        setFailed(true)
+      })
+  }, [])
+
+  useScrollReveal([images])
+
+  // Newest year first, then newest upload first within a year — Google Photos-style.
+  const sortedImages = images
+    ? [...images].sort(
+        (a, b) => b.year - a.year || new Date(b.lastModified) - new Date(a.lastModified)
+      )
+    : []
+
+  const sections = []
+  let globalIndex = 0
+  for (const img of sortedImages) {
+    const entry = { img, globalIndex: globalIndex++ }
+    const current = sections[sections.length - 1]
+    if (current?.year === img.year) current.items.push(entry)
+    else sections.push({ year: img.year, items: [entry] })
+  }
+
+  const navigate = (delta) =>
+    setActiveIndex((i) => (i + delta + sortedImages.length) % sortedImages.length)
+
+  // Matches the site's sm (640px) / lg (1024px) breakpoints. react-masonry-css assigns
+  // items to columns round-robin and never reassigns them, unlike CSS `columns`, which
+  // rebalances (and reshuffles on-screen) every time an image's real height resolves.
+  const breakpointCols = { default: 3, 1023: 2, 639: 1 }
 
   return (
     <>
@@ -17,42 +60,72 @@ export default function Gallery() {
       />
 
       <section className="section-pad">
-        <div className="wrap">
-          {/* CSS-columns masonry: figures flow top-to-bottom, then across, keeping
-              each photo's natural aspect ratio without cropping. */}
-          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3 [column-fill:_balance]">
-            {galleryImages.map((img) => (
-              <figure
-                key={img.src}
-                data-reveal
-                className="group mb-5 break-inside-avoid overflow-hidden rounded-xl border border-border bg-card"
-              >
-                <img
-                  src={asset(img.src)}
-                  alt={img.alt}
-                  width={img.w}
-                  height={img.h}
-                  loading="lazy"
-                  className="h-auto w-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                />
-              </figure>
-            ))}
-          </div>
+        {failed ? (
+          <p className="wrap text-center text-muted-foreground">
+            Couldn&rsquo;t load the gallery right now — try again shortly.
+          </p>
+        ) : images && images.length === 0 ? (
+          <p className="wrap text-center text-muted-foreground">No photos yet — check back soon.</p>
+        ) : (
+          sections.map((section) => (
+            <div key={section.year}>
+              {/* Sticky under the 74px site header, like Google Photos' pinned month labels. */}
+              <div className="sticky top-[74px] z-10 border-b border-border bg-background/95 backdrop-blur-sm">
+                <div className="wrap py-4">
+                  <h2 className="font-serif text-2xl text-primary">{section.year}</h2>
+                </div>
+              </div>
 
-          <div
-            className="mt-16 flex flex-wrap items-center gap-4 border-t border-border pt-10"
-            data-reveal
-          >
-            <p className="mr-auto max-w-[42ch] text-muted-foreground">
-              Got photos from a race or a session? Send them our way and we&rsquo;ll add them here.
-            </p>
-            <Button asChild variant="outline">
-              <Link to="/history">Read our history</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/#join">Join the club</Link>
-            </Button>
-          </div>
+              <div className="wrap pb-12 pt-6">
+                <Masonry
+                  breakpointCols={breakpointCols}
+                  className="flex gap-5"
+                  columnClassName="flex flex-col gap-5"
+                >
+                  {section.items.map(({ img, globalIndex: gi }) => (
+                    <figure
+                      key={img.thumb}
+                      data-reveal
+                      className="overflow-hidden rounded-xl border border-border bg-card"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setActiveIndex(gi)}
+                        aria-label="View larger photo"
+                        className="group block w-full cursor-zoom-in"
+                      >
+                        <img
+                          src={galleryAsset(img.thumb)}
+                          alt=""
+                          loading="lazy"
+                          className="h-auto w-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        />
+                      </button>
+                    </figure>
+                  ))}
+                </Masonry>
+              </div>
+            </div>
+          ))
+        )}
+
+        <Lightbox
+          images={sortedImages}
+          index={activeIndex}
+          onClose={() => setActiveIndex(null)}
+          onNavigate={navigate}
+        />
+
+        <div className="wrap flex flex-wrap items-center gap-4 border-t border-border pt-10" data-reveal>
+          <p className="mr-auto max-w-[42ch] text-muted-foreground">
+            Got photos from a race or a session? Send them our way and we&rsquo;ll add them here.
+          </p>
+          <Button asChild variant="outline">
+            <Link to="/history">Read our history</Link>
+          </Button>
+          <Button asChild>
+            <Link to="/#join">Join the club</Link>
+          </Button>
         </div>
       </section>
     </>

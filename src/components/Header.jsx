@@ -106,7 +106,7 @@ export default function Header() {
       <div
         id="mobile-nav"
         className={cn(
-          "absolute inset-x-0 top-full overflow-hidden border-border bg-background/95 shadow-lg backdrop-blur-md transition-[max-height] duration-300 ease-out md:hidden",
+          "absolute inset-x-0 top-full overflow-hidden border-border bg-background shadow-lg transition-[max-height] duration-300 ease-out md:hidden",
           open ? "max-h-96 border-b" : "max-h-0"
         )}
       >
