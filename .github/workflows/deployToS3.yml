@@ -1,9 +1,9 @@
 name: Deploy to S3
 
+# Prod deploy: run manually from the Actions tab once the Pages (pre-prod) deploy
+# from a push to main looks good.
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   id-token: write
