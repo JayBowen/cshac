@@ -51,6 +51,9 @@ export default function Gallery() {
   // rebalances (and reshuffles on-screen) every time an image's real height resolves.
   const breakpointCols = { default: 3, 1023: 2, 639: 1 }
 
+  // Varied heights so the loading state reads as a photo grid rather than a uniform block.
+  const skeletonHeights = [280, 200, 340, 240, 300, 220, 260, 320, 200, 280, 240, 300]
+
   return (
     <>
       <PageHeader
@@ -64,7 +67,34 @@ export default function Gallery() {
           <p className="wrap text-center text-muted-foreground">
             Couldn&rsquo;t load the gallery right now — try again shortly.
           </p>
-        ) : images && images.length === 0 ? (
+        ) : images === null ? (
+          <div>
+            {/* Same sticky-bar-plus-rule shape as a loaded year header, so only the
+                year number and photos pop in once loaded — the layout itself doesn't move. */}
+            <div className="sticky top-[74px] z-10 border-b border-border bg-background/95 backdrop-blur-sm">
+              <div className="wrap py-4">
+                <div aria-hidden="true" className="h-8 w-20 animate-pulse rounded-md bg-foreground/10" />
+              </div>
+            </div>
+
+            <div className="wrap pb-12 pt-6">
+              <Masonry
+                breakpointCols={breakpointCols}
+                className="flex gap-5"
+                columnClassName="flex flex-col gap-5"
+              >
+                {skeletonHeights.map((height, i) => (
+                  <div
+                    key={i}
+                    aria-hidden="true"
+                    className="animate-pulse rounded-xl bg-foreground/10"
+                    style={{ height }}
+                  />
+                ))}
+              </Masonry>
+            </div>
+          </div>
+        ) : images.length === 0 ? (
           <p className="wrap text-center text-muted-foreground">No photos yet — check back soon.</p>
         ) : (
           sections.map((section) => (
