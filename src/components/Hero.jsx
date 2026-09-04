@@ -9,18 +9,24 @@ export default function Hero() {
           - 640–1279  : mid landscape group-run shot (min-h 66.6667vw = 3:2; only grass margins
                         trim on the narrowest widths, runners always stay in frame)
           - >= 1280px : full club group photo (tall hero, min-height) */}
-      {/* TODO(launch): /hero-mid.jpg is a PLACEHOLDER (a copy of the group photo). Replace it with the
+      {/* TODO(launch): /hero-mid.avif is a PLACEHOLDER (a copy of the group photo). Replace it with the
           clean, licensed 7-runner running shot — the version supplied was a watermarked FOTOP proof and
-          can't ship. Keep it ~3:2, or adjust sm:min-h-[66.6667vw] if the real crop differs. */}
+          can't ship. Keep it ~3:2, or adjust sm:min-h-[66.6667vw] if the real crop differs. Re-run
+          scripts/optimize-hero-images.mjs afterwards. */}
       {/* TODO(polish): below 640px the portrait is locked to 2:3 (h-[150vw]), so a wide-but-short
           window under 640px gets a very tall, scrolling hero. Optional: add an orientation query. */}
       {/* TODO(polish): each source is a single file per tier; consider srcset variants to trim the LCP. */}
+      {/* AVIF, not JPEG — same reasoning as the gallery pipeline (see
+          scripts/optimize-hero-images.mjs): browser support is broad enough
+          not to need a fallback. Re-run that script if any of these three
+          files are ever replaced. */}
       <picture>
-        <source media="(min-width: 1280px)" srcSet={asset("hero-group.jpg")} />
-        <source media="(min-width: 640px)" srcSet={asset("hero-mid.jpg")} />
+        <source media="(min-width: 1280px)" srcSet={asset("hero-group.avif")} />
+        <source media="(min-width: 640px)" srcSet={asset("hero-mid.avif")} />
         <img
-          src={asset("hero-portrait.jpg")}
+          src={asset("hero-portrait.avif")}
           alt="Civil Service Harriers members running in the Phoenix Park"
+          fetchpriority="high"
           className="absolute inset-0 h-full w-full object-cover object-[center_30%] xl:object-[center_42%]"
         />
       </picture>
