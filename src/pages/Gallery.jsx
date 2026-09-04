@@ -146,6 +146,7 @@ export default function Gallery() {
           index={activeIndex ?? 0}
           on={{ view: ({ index }) => setActiveIndex(index) }}
           styles={{ container: { backgroundColor: "rgba(0, 0, 0, .85)" } }}
+          controller={{ closeOnBackdropClick: true }}
         />
 
         <div className="wrap flex flex-wrap items-center gap-4 border-t border-border pt-10" data-reveal>
