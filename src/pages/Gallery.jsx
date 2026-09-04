@@ -9,6 +9,42 @@ import { galleryAsset } from "@/lib/galleryAsset"
 import { listGalleryImages } from "@/lib/galleryList"
 import { useScrollReveal } from "@/lib/useScrollReveal"
 
+// Keeps a per-tile skeleton up until its own image has actually decoded, rather
+// than swapping in a collapsed/zero-height <img> the moment the listing loads —
+// we don't know each photo's real dimensions ahead of time (no manifest), so
+// there's nothing to size a placeholder against otherwise. The pre-load <img>
+// stays absolutely positioned (not display:none) rather than hidden outright —
+// loading="lazy" decides whether to fetch based on the element's position in
+// the layout, and an element with no box at all never gets close enough to
+// the viewport to trigger that.
+function GalleryThumb({ src, onClick }) {
+  const [loaded, setLoaded] = useState(false)
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label="View larger photo"
+      className={`group relative block w-full cursor-zoom-in overflow-hidden ${loaded ? "" : "aspect-4/3"}`}
+    >
+      {!loaded && (
+        <div aria-hidden="true" className="absolute inset-0 animate-pulse bg-foreground/10" />
+      )}
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        className={
+          loaded
+            ? "h-auto w-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            : "absolute inset-0 h-full w-full opacity-0"
+        }
+      />
+    </button>
+  )
+}
+
 // Photos aren't bundled with the app, and there's no manifest to maintain either —
 // the gallery bucket is listed directly at runtime (see lib/galleryList.js), so
 // uploading new photos to S3 is the only step needed to update the live site.
@@ -118,19 +154,10 @@ export default function Gallery() {
                       data-reveal
                       className="overflow-hidden rounded-xl border border-border bg-card"
                     >
-                      <button
-                        type="button"
+                      <GalleryThumb
+                        src={galleryAsset(img.thumb)}
                         onClick={() => setActiveIndex(gi)}
-                        aria-label="View larger photo"
-                        className="group block w-full cursor-zoom-in"
-                      >
-                        <img
-                          src={galleryAsset(img.thumb)}
-                          alt=""
-                          loading="lazy"
-                          className="h-auto w-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                        />
-                      </button>
+                      />
                     </figure>
                   ))}
                 </Masonry>
