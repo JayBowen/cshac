@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Masonry from "react-masonry-css"
+import Lightbox from "yet-another-react-lightbox"
+import "yet-another-react-lightbox/styles.css"
 import PageHeader from "@/components/PageHeader"
 import { Button } from "@/components/ui/button"
-import Lightbox from "@/components/Lightbox"
 import { galleryAsset } from "@/lib/galleryAsset"
 import { listGalleryImages } from "@/lib/galleryList"
 import { useScrollReveal } from "@/lib/useScrollReveal"
@@ -43,8 +44,7 @@ export default function Gallery() {
     else sections.push({ year: img.year, items: [entry] })
   }
 
-  const navigate = (delta) =>
-    setActiveIndex((i) => (i + delta + sortedImages.length) % sortedImages.length)
+  const slides = sortedImages.map((img) => ({ src: galleryAsset(img.full), alt: "" }))
 
   // Matches the site's sm (640px) / lg (1024px) breakpoints. react-masonry-css assigns
   // items to columns round-robin and never reassigns them, unlike CSS `columns`, which
@@ -110,10 +110,12 @@ export default function Gallery() {
         )}
 
         <Lightbox
-          images={sortedImages}
-          index={activeIndex}
-          onClose={() => setActiveIndex(null)}
-          onNavigate={navigate}
+          open={activeIndex !== null}
+          close={() => setActiveIndex(null)}
+          slides={slides}
+          index={activeIndex ?? 0}
+          on={{ view: ({ index }) => setActiveIndex(index) }}
+          styles={{ container: { backgroundColor: "rgba(0, 0, 0, .85)" } }}
         />
 
         <div className="wrap flex flex-wrap items-center gap-4 border-t border-border pt-10" data-reveal>
