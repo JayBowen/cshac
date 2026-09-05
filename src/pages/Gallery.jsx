@@ -175,7 +175,7 @@ export default function Gallery() {
                   aria-hidden="true"
                   className="inline-flex h-11 items-center gap-1 rounded-full bg-muted p-1"
                 >
-                  {[1, 2, 3, 4, 5].map((i) => (
+                  {[1, 2, 3, 4].map((i) => (
                     <div key={i} className="h-8 w-[75px] animate-pulse rounded-full bg-foreground/10" />
                   ))}
                 </div>
